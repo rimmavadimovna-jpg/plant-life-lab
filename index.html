@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Игры и карточки по жизненному циклу цветковых растений на русском и английском.">
+<title>Ботаническая лаборатория · Plant Life Cycles</title>
+<style>
+:root{--ink:#203b31;--muted:#526b5c;--paper:#f6f7ed;--line:#dce5d5;--green:#23543c;--lime:#e6f5a8;--white:#fffef9}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Trebuchet MS",system-ui,sans-serif}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #7a52a7;outline-offset:3px}
+.wrap{width:min(1050px,calc(100% - 32px));margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 0;font-weight:800}.brand{display:flex;align-items:center;gap:10px}.brand span{display:grid;place-items:center;width:38px;height:38px;background:#d5efac;border-radius:13px}.progress{background:#e8efdf;padding:6px 12px;border-radius:999px;font-size:.9rem;white-space:nowrap}
+.hero{border-radius:28px;background:#214936;color:#fffef2;min-height:305px;padding:clamp(25px,5vw,55px);position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center}
+.hero-copy{position:relative;z-index:1;width:min(100%,530px)}.eyebrow{color:#ddf19c;text-transform:uppercase;letter-spacing:.17em;font-size:.83rem;font-weight:800}
+h1,h2,h3,p{margin:0}h1{font-size:clamp(2.35rem,6.5vw,4.65rem);line-height:.98;letter-spacing:-.066em;margin:.22em 0 .27em}h2{font-size:clamp(1.75rem,4vw,2.6rem);letter-spacing:-.042em;line-height:1.08}h3{font-size:1.23rem;line-height:1.25}.hero p{color:#e3eedf;max-width:390px;margin-bottom:20px}.btn{border:1px solid var(--line);background:var(--white);padding:10px 16px;border-radius:12px;font-weight:800;min-height:44px}.btn.primary{background:var(--green);color:white;border-color:var(--green)}.hero .primary{background:var(--lime);color:#203b31;border-color:var(--lime)}.btn:hover:not(:disabled){filter:brightness(.95)}.btn:disabled{opacity:.56;cursor:default}
+.garden{position:absolute;inset:0 0 0 51%;overflow:hidden;background:radial-gradient(ellipse at 61% 54%,#477b49 0%,#2d593d 44%,transparent 76%);pointer-events:none}
+.orbit{position:absolute;width:258px;height:258px;border:1px dashed #a9c88b88;border-radius:50%;left:29%;top:8%}.sun{position:absolute;left:43%;top:12%;width:173px;height:173px;border-radius:50%;background:#ebd985;opacity:.94}.hill{position:absolute;bottom:-38%;left:-5%;width:125%;height:74%;background:#377250;border-radius:55% 45% 0 0;rotate:-10deg}.plant{position:absolute;left:56%;bottom:0;width:9px;height:73%;background:#9fbd62;border-radius:15px;rotate:-12deg}.leaf{position:absolute;width:78px;height:40px;background:#b4d36f;border-radius:100% 0 100% 0;left:4px;top:42%;rotate:-18deg}.leaf.second{left:-72px;top:58%;transform:scaleX(-1);rotate:18deg;background:#79ad5d}.leaf.third{left:4px;top:72%;scale:.75}.bloom{position:absolute;top:-9px;left:4px;width:1px;height:1px}.petal{position:absolute;left:-19px;top:-65px;width:38px;height:64px;background:#f7a493;border-radius:60% 60% 48% 48%;transform-origin:50% 65px;transform:rotate(calc(var(--i)*45deg))}.heart{position:absolute;width:48px;height:48px;top:-24px;left:-24px;border-radius:50%;background:radial-gradient(circle,#77523b 1.6px,transparent 2.4px) 0 0/8px 8px,#f4bf60}.bee,.nut,.star{position:absolute}.bee{left:78%;top:34%;font-size:2.7rem;rotate:-16deg}.nut{left:77%;bottom:6%;font-size:3.45rem;rotate:12deg}.star{left:26%;top:66%;color:#f1dc94;font-size:2rem}.star.alt{left:86%;top:14%;font-size:1.2rem}
+nav{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:20px 0 16px}.tab{min-height:64px;border:1px solid var(--line);border-radius:16px;background:var(--white);font-weight:800;display:flex;justify-content:center;align-items:center;gap:8px;padding:9px}.tab:hover{background:#eaf2de}.tab[aria-pressed=true]{background:#dff1b1;border-color:#96b66f;box-shadow:0 3px 0 #9fb97d}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,4vw,36px);min-height:280px;box-shadow:0 8px 22px #213d2610}.intro{margin:.5rem 0 1.15rem;color:var(--muted)}.pill{display:inline-block;background:#edf0e4;border-radius:999px;padding:4px 11px;font-size:.9rem;font-weight:800}.row{display:flex;align-items:center;flex-wrap:wrap;gap:9px}.between{justify-content:space-between}.stack{display:grid;gap:9px}details{border:1px solid var(--line);border-radius:14px;background:#fcfdf7}summary{cursor:pointer;font-weight:800;padding:13px 15px}details p{padding:0 15px 13px}details p+p{padding-top:0}.sample{display:block;color:#24513a;font-weight:800;margin-top:5px}
+.card{display:grid;place-items:center;align-content:center;gap:9px;width:100%;min-height:190px;margin:15px 0;background:#ecedfc;border:1px solid #d3d4f4;border-radius:21px;text-align:center;padding:18px}.card strong{font-size:clamp(1.6rem,5vw,2.7rem);line-height:1.08}.card span{color:#4b4c74}.card.flipped{background:#e8f3cc;border-color:#cadfa8}.card.flipped span{color:#456544}
+.quizbody{padding:20px;margin:14px 0;border-radius:18px;background:#edf3e6}.quizbody.ocean{background:#e1f2fa}.question{margin-top:9px;max-width:690px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.opt{text-align:left}.opt.right{border-color:#72a450;background:#e5f2ce;color:#254725}.opt.wrong{border-color:#d09483;background:#ffebe5;color:#77382e}.opt:disabled{opacity:1}.feedback{margin:12px 0;min-height:1.5em}.feedback.good{color:#2b6134}.feedback.retry{color:#903e30}.ordered{margin:13px 0;display:flex;flex-wrap:wrap;gap:8px;min-height:50px;padding:9px;background:#eff3e6;border-radius:12px;list-style-position:inside}.ordered li{padding:3px 6px}.ordered li::marker{color:#536b48;font-weight:800}.pool{display:flex;flex-wrap:wrap;gap:8px}.pool button:disabled{background:#ecf0e8}.hint{color:var(--muted);font-size:.93rem}.spacer{margin-top:13px}.under{padding:20px 0 28px;color:var(--muted);font-size:.9rem}select{padding:8px 11px;border-radius:11px;border:1px solid var(--line);background:white;min-height:44px}input{padding:9px 12px;border-radius:11px;border:1px solid #a1b6a6;background:#fff;min-height:44px;min-width:0;max-width:100%}form label{display:block;margin-bottom:6px;font-weight:800}progress{accent-color:#4b814d;width:130px;height:11px} [hidden]{display:none!important}
+@media(max-width:760px){.garden{left:57%;opacity:.75}.sun{left:32%;width:130px;height:130px;top:21%}.orbit{left:12%;width:205px;height:205px;top:22%}.plant{left:53%;scale:.77;transform-origin:bottom}.bee{left:77%;top:38%;font-size:1.9rem}.nut{left:70%;font-size:2.5rem}.star{display:none}.hero-copy{width:75%}nav{grid-template-columns:repeat(3,1fr)}.tab{justify-content:flex-start;min-height:48px}}
+@media(max-width:460px){.top{font-size:.87rem}.progress{font-size:.8rem}.hero{min-height:280px}.hero-copy{width:100%}.hero p{max-width:215px}.garden{left:58%;opacity:.53}.sun{left:13%}.orbit{left:-20%}.plant{left:66%;scale:.60}.bee{left:73%;top:44%;font-size:1.55rem}.nut{left:65%;font-size:1.9rem}.tab{font-size:.89rem;padding:7px;gap:5px}.options{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div class="brand"><span aria-hidden="true">🌱</span> Ботаническая лаборатория</div><div id="progress" class="progress" aria-live="polite">0 из 4 пройдено</div></header>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy"><div class="eyebrow" lang="en">Plant life cycles</div><h1 id="hero-title">От цветка<br>до семечка</h1><p>Короткая шпаргалка и игры перед проверочной по естествознанию на английском.</p><button class="btn primary" data-mode="sort">Начать с кокоса 🥥</button></div>
+    <div class="garden" aria-hidden="true"><div class="orbit"></div><div class="sun"></div><div class="hill"></div><div class="plant"><div class="leaf"></div><div class="leaf second"></div><div class="leaf third"></div><div class="bloom"><i class="petal" style="--i:0"></i><i class="petal" style="--i:1"></i><i class="petal" style="--i:2"></i><i class="petal" style="--i:3"></i><i class="petal" style="--i:4"></i><i class="petal" style="--i:5"></i><i class="petal" style="--i:6"></i><i class="petal" style="--i:7"></i><div class="heart"></div></div></div><span class="bee">🐝</span><span class="nut">🥥</span><span class="star">✦</span><span class="star alt">✦</span></div>
+  </section>
+  <nav aria-label="Режимы тренажёра">
+    <button class="tab" data-mode="guide"><span aria-hidden="true">📗</span> Шпаргалка</button>
+    <button class="tab" data-mode="cards"><span aria-hidden="true">🗂️</span> Карточки</button>
+    <button class="tab" data-mode="sort"><span aria-hidden="true">🥥</span> Ветер и вода</button>
+    <button class="tab" data-mode="cycle"><span aria-hidden="true">🌱</span> Собери цикл</button>
+    <button class="tab" data-mode="check"><span aria-hidden="true">🧪</span> Мини-тест</button>
+  </nav>
+  <main id="panel" class="panel" aria-labelledby="section-title"></main>
+  <footer class="under">Английские термины даны в британском написании. Прогресс хранится в этом браузере.</footer>
+</div>
+<script>
+"use strict";
+const stages = ['Germination','Growth','Flowering','Pollination','Fertilisation','Seed formation','Seed dispersal'];
+const decks = {
+  'Части цветка': [['pollen','пыльца'],['anther','пыльник'],['filament','тычиночная нить'],['stamen','тычинка'],['stigma','рыльце'],['style','столбик'],['ovary','завязь'],['ovule','семязачаток'],['carpel','плодолистик'],['petal','лепесток'],['sepal','чашелистик'],['bud','бутон'],['nectar','нектар']],
+  'Процессы': [['life cycle','жизненный цикл'],['pollination','опыление'],['pollinator','опылитель'],['pollen tube','пыльцевая трубка'],['nucleus','ядро'],['fertilisation','оплодотворение'],['seed formation','образование семян'],['seed dispersal','распространение семян'],['germination','прорастание'],['growth','рост'],['flowering','цветение']],
+  'Семена и примеры': [['wind','ветер'],['water','вода'],['coconut','кокос'],['float','держаться на плаву'],['dandelion','одуванчик'],['poppy','мак'],['feathery','перистый'],['seed pod','стручок / семенная коробочка'],['root','корень'],['oxygen','кислород'],['food store','запас питательных веществ'],['oil','масло']]
+};
+const guide = [
+  ['🥥 Ветер, вода и кокос',[
+    '<b>Ветер несёт пыльцу к рыльцу злака</b> → <span lang="en">wind pollination</span>.',
+    '<b>Ветер несёт семена одуванчика</b> → <span lang="en">seed dispersal by wind</span>. У клёна крылатки вращаются, а из сухой коробочки мака ветер вытряхивает семена.',
+    '<b>Кокос плывёт</b> → <span lang="en">seed dispersal by water</span>. Вода уносит плод с семенем внутри. Когда семя начинает расти и появляется корешок, это <span lang="en">germination</span>.<span class="sample" lang="en">Coconuts are dispersed by water because they can float.</span>']],
+  ['🌼 Части цветка и опыление',[
+    '<b lang="en">Stamen</b> (тычинка) = <b lang="en">anther</b> (пыльник) + <b lang="en">filament</b> (нить). <b lang="en">Carpel</b> (плодолистик) = <b lang="en">stigma</b> (рыльце) + <b lang="en">style</b> (столбик) + <b lang="en">ovary</b> (завязь с семязачатками). Чашелистики (<span lang="en">sepals</span>) защищают бутон.',
+    '<b lang="en">Pollination</b> — перенос пыльцы с пыльника на рыльце того же или другого цветка. Яркие лепестки и нектар привлекают насекомых. Колибри и летучие мыши тоже могут переносить пыльцу.',
+    'У злаков пыльники свисают на гибких нитях, а перистые рыльца (<span lang="en">feathery stigmas</span>) ловят мелкую лёгкую пыльцу. Такой пыльцы образуется много.']],
+  ['🍅 Оплодотворение и образование семян',[
+    'Пыльцевое зерно на рыльце образует <b lang="en">pollen tube</b>. Трубка растёт через столбик к семязачатку. При <b lang="en">fertilisation</b> мужское ядро сливается с ядром женской клетки внутри семязачатка.',
+    'Оплодотворённый <b lang="en">ovule</b> развивается в <b lang="en">seed</b>. У томата <b lang="en">ovary</b> развивается в <b lang="en">fruit</b>.']],
+  ['🍃 Как семена попадают в новые места',[
+    '<b lang="en">Seed dispersal</b> помогает молодым растениям меньше конкурировать за свет, воду и минеральные вещества.',
+    'Кроме ветра и воды, помогают <b>животные</b>: цепляют плоды с крючками к шерсти, роняют орехи или разносят семена съеденных ягод. При <b lang="en">explosion</b> сухой стручок раскрывается и выбрасывает семена.']],
+  ['🧪 Прорастание и школьный опыт',[
+    'Семенам нужны <b>вода и кислород</b>. У разных семян свои подходящие условия температуры и освещения. Кислород нужен для дыхания, а запас питательных веществ даёт энергию для роста. Первым появляется корень. Позже листья используют свет, чтобы делать пищу.',
+    '<b>A</b> — вода и воздух. <b>B</b> — остывшая кипячёная вода под слоем масла (мало кислорода). <b>C</b> — воздух без воды. В опыте должны прорасти семена группы A. Сравни A и C, чтобы проверить роль воды, и A и B, чтобы проверить роль кислорода. Вид семян, температура и время одинаковы.']],
+  ['🔁 Все этапы цикла',[
+    '<b lang="en">Germination → growth → flowering → pollination → fertilisation → seed formation → seed dispersal → germination</b>.',
+    'Цветковые растения используют цветки для размножения. У некоторых других растений есть шишки (<span lang="en">cones</span>). У папоротников (<span lang="en">ferns</span>) и мхов (<span lang="en">mosses</span>) цветков и шишек нет.']]
+];
+const categories = ['Wind pollination','Seed dispersal by wind','Seed dispersal by water','Germination'];
+const sorting = [
+  ['🥥','A coconut floats to another beach.',2,'Вода уносит весь плод с семенем внутри.','Coconuts are dispersed by water.'],
+  ['🌾','Wind carries pollen from a grass anther to a stigma.',0,'Переносится пыльца, и она попадает на рыльце.','The wind carries pollen to a stigma.'],
+  ['🌬️','Wind blows dandelion seeds away.',1,'Ветер подхватывает уже образовавшиеся семена.','Dandelion seeds are dispersed by wind.'],
+  ['🌱','A bean seed takes in water and grows a small root.',3,'Корешок показывает, что семя начало расти.','The seed is germinating.'],
+  ['🌊','A coconut seed starts to grow after the fruit reaches land.',3,'Смотри на действие starts to grow — семя начинает расти.','The coconut seed is germinating.'],
+  ['🍂','Wind shakes seeds out of a dry poppy pod.',1,'Из коробочки мака высыпаются семена.','Poppy seeds are dispersed by wind.']
+].map(([icon,prompt,index,why,sentence])=>({icon,prompt,options:categories,answer:categories[index],why,sentence}));
+const test = [
+  {prompt:'Which part makes pollen?',options:['Stigma','Anther','Ovary','Sepal'],answer:'Anther',why:'Пыльца образуется в пыльнике. Рыльце принимает пыльцу.'},
+  {prompt:'Write the English word for «семязачаток».',answer:'ovule',why:'Ovule — семязачаток. Ovary — завязь, в которой находятся семязачатки.'},
+  {prompt:'Where does the pollen tube grow on its way to the ovule?',options:['Through the style','Through a petal','Through a sepal'],answer:'Through the style',why:'Пыльцевая трубка растёт через столбик.'},
+  {prompt:'What does a fertilised ovule become?',options:['A fruit','A stigma','A seed'],answer:'A seed',why:'Из оплодотворённого семязачатка образуется семя. У томата плод развивается из завязи.'},
+  {prompt:'A flower has feathery stigmas and hanging anthers. How is it probably pollinated?',options:['By insects','By wind'],answer:'By wind',why:'Перистые рыльца улавливают пыльцу из воздуха.'},
+  {prompt:'A bird eats berries and passes the seeds in its droppings. How are the seeds dispersed?',options:['By animals','By water','By explosion'],answer:'By animals',why:'Птица переносит семена ягод в новое место.'},
+  {prompt:'A has water and air. B has cooled boiled water under oil. C has air but no water. Which pair tests whether seeds need water?',options:['A and B','B and C','A and C'],answer:'A and C',why:'В A и C есть воздух, а вода есть только в A. Для проверки роли кислорода сравни A и B.'},
+  {prompt:'Why is seed dispersal useful?',options:['Seedlings compete less with the parent plant','Pollen moves down the style','Seeds make their own sunlight'],answer:'Seedlings compete less with the parent plant',why:'На новом месте молодому растению проще получить воду, свет и минеральные вещества.'}
+];
+const panel = document.querySelector('#panel');
+const modes = ['guide','cards','sort','cycle','check'];
+const completed = new Set();
+try {
+  for (const item of JSON.parse(localStorage.getItem('plant-lab-progress-v1') || '[]')) {
+    if (modes.slice(1).includes(item)) completed.add(item);
+  }
+} catch {}
+const flash = {deck:Object.keys(decks)[0],index:0,reverse:false,flip:false,known:new Set()};
+const games = {sort:{},check:{}};
+for (const mode of Object.keys(games)) resetGame(mode);
+const order = [];
+let active = 'guide', cycleMessage = '', cycleSolved = false;
+const buttons = (label,attrs='',style='')=>'<button type="button" class="btn '+style+'" '+attrs+'>'+label+'</button>';
+const head = (title,intro='')=>'<h2 id="section-title" tabindex="-1">'+title+'</h2>'+(intro?'<p class="intro">'+intro+'</p>':'');
+function resetGame(mode){games[mode]={index:0,picked:null,correct:0,missed:[],review:false,done:false,questions:mode==='sort'?sorting:test}}
+function refreshProgress(){document.querySelector('#progress').textContent=completed.size+' из 4 пройдено'}
+function mark(mode){
+  completed.add(mode);
+  try {localStorage.setItem('plant-lab-progress-v1',JSON.stringify([...completed]));} catch {}
+  refreshProgress();
+}
+function go(mode,move=true){
+  active=mode;
+  for(const tab of document.querySelectorAll('nav [data-mode]')) tab.setAttribute('aria-pressed',String(tab.dataset.mode===active));
+  render();
+  if(move) document.querySelector('#section-title').focus();
+}
+function render(){
+  if(active==='guide'){
+    panel.innerHTML=head('Шпаргалка','Открой нужную тему. Английские формулировки можно повторять вслух.')+'<div class="stack">'+guide.map(([title,paragraphs],index)=>'<details '+(index===0?'open':'')+'><summary>'+title+'</summary>'+paragraphs.map(p=>'<p>'+p+'</p>').join('')+'</details>').join('')+'</div>';
+  }else if(active==='cards'){renderCards();}
+  else if(active==='cycle'){renderCycle();}
+  else{renderGame();}
+}
+function renderCards(){
+  const deck=decks[flash.deck], [en,ru]=deck[flash.index], key=flash.deck+'/'+flash.index;
+  const word=flash.reverse===flash.flip?en:ru;
+  const known=flash.known.has(key);
+  const count=deck.filter((_,index)=>flash.known.has(flash.deck+'/'+index)).length;
+  panel.innerHTML=head('Карточки','Вспомни перевод, переверни карточку и отметь слова, которые уже знаешь.')+
+    '<div class="row between"><div class="row"><label for="deck">Тема</label><select id="deck">'+Object.keys(decks).map(topic=>'<option'+(topic===flash.deck?' selected':'')+'>'+topic+'</option>').join('')+'</select>'+
+    buttons(flash.reverse?'RU → EN':'EN → RU','data-action="reverse" aria-label="Сменить направление перевода"')+'</div><span class="pill">'+(flash.index+1)+' / '+deck.length+' · Знаю '+count+'</span></div>'+
+    '<button type="button" class="card '+(flash.flip?'flipped':'')+'" data-action="flip"><strong lang="'+(word===en?'en':'ru')+'">'+word+'</strong><span>'+(flash.flip?'Нажми, чтобы перевернуть обратно':'Нажми, чтобы увидеть перевод')+'</span></button>'+
+    '<div class="row between"><div class="row">'+buttons('Назад','data-action="prev"')+buttons('Дальше','data-action="next"')+'</div>'+
+    buttons(known?'Убрать отметку':'Знаю это слово','data-action="known"','primary')+'</div>';
+}
+function renderCycle(){
+  const pool=[3,6,1,5,0,4,2];
+  panel.innerHTML=head('Собери жизненный цикл','Нажимай на этапы в нужном порядке. Начни с прорастания.')+
+    '<div class="quizbody"><span class="pill">'+order.length+' / '+stages.length+'</span><ol class="ordered" lang="en">'+order.map(i=>'<li>'+stages[i]+'</li>').join('')+'</ol><div class="pool" lang="en">'+pool.map(i=>buttons(stages[i],'data-order="'+i+'" '+(order.includes(i)?'disabled':''))).join('')+'</div></div>'+
+    '<div class="row">'+buttons('Проверить','data-action="cycle-check" '+(order.length!==stages.length||cycleSolved?'disabled':''),'primary')+buttons('Отменить последний','data-action="undo" '+(!order.length||cycleSolved?'disabled':''))+buttons('Начать заново','data-action="cycle-reset" '+(!order.length?'disabled':''))+'</div>'+
+    '<p class="feedback '+(cycleSolved?'good':'retry')+'" role="status">'+cycleMessage+'</p>';
+}
+function renderGame(){
+  const mode=active, game=games[mode], sort=mode==='sort', title=sort?'Ветер, вода и кокос':'Мини-тест';
+  if(game.done){
+    panel.innerHTML=head(title)+'<div class="quizbody '+(sort?'ocean':'')+'"><h3>Результат · '+game.correct+' из '+game.questions.length+'</h3><p class="spacer">'+(game.missed.length?'Можно повторить только вопросы с ошибками.':'Все ответы верны!')+'</p></div><div class="row">'+
+    (game.missed.length?buttons('Повторить ошибки','data-action="review"','primary'):'')+buttons('Пройти заново','data-action="game-reset"')+'</div>';
+    return;
+  }
+  const q=game.questions[game.index], answered=game.picked!==null, correct=game.picked===q.answer;
+  panel.innerHTML=head(title,sort?'Смотри, что переносится или что начинает расти. Выбери процесс.':'Ответь по-английски, как на проверочной.')+
+    '<div class="row between"><span class="pill">'+(game.review?'Повторение · ':'')+'Вопрос '+(game.index+1)+' из '+game.questions.length+'</span><progress value="'+(game.index+Number(answered))+'" max="'+game.questions.length+'" aria-label="Вопросов пройдено"></progress></div>'+
+    '<div class="quizbody '+(sort?'ocean':'')+'">'+(q.icon?'<span aria-hidden="true">'+q.icon+'</span>':'')+'<h3 class="question" id="question" tabindex="-1" lang="en">'+q.prompt+'</h3></div>'+
+    (q.options?'<div class="options" lang="en">'+q.options.map((option,index)=>buttons(option,'data-option="'+index+'" '+(answered?'disabled':''),'opt '+(answered&&option===q.answer?'right':answered&&option===game.picked?'wrong':''))).join('')+'</div>':
+    answered?'<p lang="en"><strong>'+q.answer+'</strong></p>':'<form id="spelling"><label for="word">Напиши ответ</label><div class="row"><input id="word" name="word" lang="en" autocomplete="off" spellcheck="false" required><button class="btn primary">Проверить</button></div></form>')+
+    '<p class="feedback '+(correct?'good':'retry')+'" role="status">'+(answered?'<strong>'+(correct?'Верно!':'Ответ: <span lang="en">'+q.answer+'</span>.')+'</strong> '+q.why+(q.sentence?'<span class="sample" lang="en">'+q.sentence+'</span>':''):'')+'</p>'+
+    (answered?buttons(game.index===game.questions.length-1?'Посмотреть результат':'Следующий вопрос','data-action="game-next"','primary'):'');
+}
+function answer(value){
+  const game=games[active], q=game.questions[game.index];
+  if(game.picked!==null) return;
+  game.picked=value;
+  if(value===q.answer) game.correct++;
+  else game.missed.push(q);
+  renderGame();
+  panel.querySelector('[data-action="game-next"]').focus();
+}
+document.addEventListener('change',event=>{
+  if(event.target.id!=='deck') return;
+  Object.assign(flash,{deck:event.target.value,index:0,flip:false});
+  renderCards();
+  panel.querySelector('#deck').focus();
+});
+document.addEventListener('submit',event=>{
+  if(event.target.id!=='spelling') return;
+  event.preventDefault();
+  const value=panel.querySelector('#word').value.trim().toLowerCase().replace(/[.!?]$/,'');
+  if(value) answer(value);
+  else panel.querySelector('#word').focus();
+});
+document.addEventListener('click',event=>{
+  const button=event.target.closest('button');
+  if(!button) return;
+  if(button.dataset.mode){go(button.dataset.mode);return;}
+  if(button.dataset.option!==undefined){const game=games[active];answer(game.questions[game.index].options[Number(button.dataset.option)]);return;}
+  if(button.dataset.order!==undefined){
+    order.push(Number(button.dataset.order));cycleMessage='';renderCycle();
+    (panel.querySelector('[data-order]:not(:disabled)')||panel.querySelector('[data-action="cycle-check"]')).focus();return;
+  }
+  const action=button.dataset.action;
+  if(!action) return;
+  if(active==='cards'){
+    const length=decks[flash.deck].length, key=flash.deck+'/'+flash.index;
+    switch(action){
+      case 'reverse':flash.reverse=!flash.reverse;flash.flip=false;break;
+      case 'flip':flash.flip=!flash.flip;break;
+      case 'prev':flash.index=(flash.index+length-1)%length;flash.flip=false;break;
+      case 'next':flash.index=(flash.index+1)%length;flash.flip=false;break;
+      case 'known':
+        if(flash.known.has(key)) flash.known.delete(key);
+        else flash.known.add(key);
+        if(decks[flash.deck].every((_,index)=>flash.known.has(flash.deck+'/'+index))) mark('cards');
+        break;
+    }
+  }else if(active==='cycle'){
+    cycleMessage='';
+    if(action==='undo') order.pop();
+    if(action==='cycle-reset'){order.length=0;cycleSolved=false;}
+    if(action==='cycle-check'){
+      const mismatch=order.findIndex((value,index)=>value!==index);
+      cycleSolved=mismatch===-1;
+      cycleMessage=cycleSolved?'Точно! После распространения семян цикл начинается снова.':'Перепроверь этап '+(mismatch+1)+'. '+(mismatch===0?'Начни с Germination.':'Что происходит сразу после '+stages[mismatch-1]+'?');
+      if(cycleSolved) mark('cycle');
+    }
+  }else{
+    const game=games[active];
+    if(action==='game-reset') resetGame(active);
+    if(action==='review') games[active]={index:0,picked:null,correct:0,missed:[],review:true,done:false,questions:game.missed.slice()};
+    if(action==='game-next'){
+      game.index++;game.picked=null;
+      if(game.index>=game.questions.length){game.done=true;mark(active);}
+    }
+  }
+  render();
+  const focus=panel.querySelector('#question')||panel.querySelector('[data-action="'+action+'"]:not(:disabled)')||panel.querySelector('[data-order]:not(:disabled)')||panel.querySelector('#section-title');
+  focus.focus();
+});
+refreshProgress();
+go('guide',false);
+</script>
+</body>
+</html>
+
